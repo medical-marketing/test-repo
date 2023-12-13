@@ -1,12 +1,16 @@
-import { createClient } from "@/prismicio";
 import { PrismicNextImage, PrismicNextLink } from "@prismicio/next";
 import { PrismicRichText } from "@prismicio/react";
 import Bounded from "@/components/Bounded";
 
-export default async function Footer() {
-  const client = createClient();
-  const footerData = await client.getSingle("footer");
-  const settings = await client.getSingle("settings");
+import { getFooter, getSettings } from "@/app/utils";
+
+type FooterProps = {
+  uid: string;
+};
+
+export default async function Footer({ uid }: FooterProps) {
+  // const settings = await getSettings();
+  const footer = await getFooter(uid);
 
   const {
     background_image,
@@ -20,7 +24,7 @@ export default async function Footer() {
     whatsapp_link,
     whatsapp_icon_color,
     whatsapp_icon_background_color,
-  } = footerData.data;
+  } = footer.data;
   // console.log("whatsapp icon link ", whatsapp_icon_link);
   return (
     <>
@@ -31,6 +35,9 @@ export default async function Footer() {
             field={background_image}
           />
 
+          {/* <div style={{ color: "black" }}>
+            {JSON.stringify(whatsapp_link) + "hi"}
+          </div> */}
           <Bounded
             as="div"
             className="relative py-[5rem] sm:py-[6rem] md:py-[6rem] lg:py-[8rem] px-4 md:px-6"
@@ -59,8 +66,7 @@ export default async function Footer() {
               </PrismicNextLink>
             </div>
           </Bounded>
-
-          {whatsapp_link?.link_type != "Any" && (
+          {whatsapp_link && whatsapp_link?.link_type != "Any" && (
             <PrismicNextLink
               style={{
                 position: "fixed",

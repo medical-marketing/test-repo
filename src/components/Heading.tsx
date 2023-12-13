@@ -1,4 +1,4 @@
-import { createClient } from "@/prismicio";
+import { getSettings } from "@/app/utils";
 import clsx from "clsx";
 
 type HeadingProps = {
@@ -16,8 +16,8 @@ export default async function Heading({
   className,
   color,
 }: HeadingProps) {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
+
   const { primary_color } = settings.data;
   return (
     <Comp

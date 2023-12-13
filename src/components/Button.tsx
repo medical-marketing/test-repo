@@ -1,8 +1,8 @@
-import { createClient } from "@/prismicio";
 import CTA from "@/components/CTA";
 import Iframe from "@/components/Iframe";
 import clsx from "clsx";
 import { PrismicNextLink } from "@prismicio/next";
+import { getSettings } from "@/app/utils";
 
 export default async function Button({
   cta_link,
@@ -10,8 +10,7 @@ export default async function Button({
   className,
   children,
 }: any) {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
   const { cta_background_color, cta_text_color, default_iframe } =
     settings.data;
 

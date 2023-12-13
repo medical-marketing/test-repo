@@ -1,3 +1,4 @@
+import { getSettings } from "@/app/utils";
 import AfterCtaText from "@/components/AfterCtaText";
 import BackgroundOfSmallImages from "@/components/BackgroundOfSmallImages";
 import Bounded from "@/components/Bounded";
@@ -5,7 +6,6 @@ import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Paragraph from "@/components/Paragraph";
 import VideoPopup from "@/components/VideoPopup";
-import { createClient } from "@/prismicio";
 import { Content } from "@prismicio/client";
 import { PrismicNextImage } from "@prismicio/next";
 import {
@@ -74,8 +74,7 @@ export type Section3Props = SliceComponentProps<Content.Section3Slice>;
  * Component for "Section3" Slices.
  */
 const Section3 = async ({ slice }: Section3Props): Promise<JSX.Element> => {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
   const { primary_color } = settings.data;
 
   return (
@@ -109,6 +108,7 @@ const Section3 = async ({ slice }: Section3Props): Promise<JSX.Element> => {
               // @ts-ignore
               background_of_small_images?.uid && (
                 <BackgroundOfSmallImages
+                  //@ts-ignore
                   uid={background_of_small_images?.uid}
                 />
               )

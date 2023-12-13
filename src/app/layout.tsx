@@ -5,15 +5,12 @@ import clsx from "clsx";
 
 import { Nunito, Nunito_Sans } from "next/font/google";
 
-import { createClient, repositoryName } from "@/prismicio";
+import { repositoryName } from "@/prismicio";
 import { PrismicPreview } from "@prismicio/next";
-
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 import { Providers } from "@/app/providers";
 import { TrackingHeadScript } from "@phntms/next-gtm";
-import Head from "next/head";
+import { getSettings } from "@/app/utils";
 
 const body = Nunito_Sans({
   subsets: ["latin"],
@@ -33,18 +30,14 @@ type Props = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  const client = createClient();
-
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
 
   const {
-    data: {
-      meta_title,
-      meta_description,
-      og_image,
-      block_indexing_by_search_engines,
-    },
-  } = settings;
+    meta_title,
+    meta_description,
+    og_image,
+    block_indexing_by_search_engines,
+  } = settings.data;
 
   return {
     title: meta_title || "Fallback Meta Title",
@@ -68,25 +61,16 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
-  const {
-    data: {
-      primary_color,
-      secondary_color,
-      gtm_id: GTM_ID,
-      block_indexing_by_search_engines,
-    },
-  } = settings;
-  console.log("block indexing", block_indexing_by_search_engines);
+  const settings = await getSettings();
+
+  const { primary_color, secondary_color, gtm_id: GTM_ID } = settings.data;
+
   return (
     <html lang="en">
       <body className={clsx(body.variable, display.variable)}>
         <Providers>
           <TrackingHeadScript id={GTM_ID || ""} isGTM={true} />
-          <Header />
           {children}
-          <Footer />
         </Providers>
         <PrismicPreview repositoryName={repositoryName} />
       </body>

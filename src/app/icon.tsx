@@ -1,5 +1,5 @@
 import { ImageResponse } from "next/og";
-import { createClient } from "@/prismicio";
+import { getSettings } from "@/app/utils";
 
 // Route segment config
 export const runtime = "nodejs";
@@ -13,8 +13,7 @@ export const contentType = "image/png";
 
 // Image generation
 export default async function Icon() {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
   const { favicon } = settings.data;
   return new ImageResponse(
     (

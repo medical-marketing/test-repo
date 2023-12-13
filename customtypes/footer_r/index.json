@@ -1,11 +1,17 @@
 {
-  "id": "footer",
-  "label": "Footer",
+  "id": "footer_r",
+  "label": "Footer R",
   "format": "custom",
-  "repeatable": false,
+  "repeatable": true,
   "status": true,
   "json": {
     "Main": {
+      "uid": {
+        "config": {
+          "label": "UID"
+        },
+        "type": "UID"
+      },
       "background_image": {
         "type": "Image",
         "config": {
@@ -20,18 +26,17 @@
           "label": "Terms and Conditions Text",
           "placeholder": "",
           "allowTargetBlank": true,
-          "single": "paragraph,strong,em,hyperlink"
+          "multi": "paragraph,strong,em"
         }
       },
       "logo": {
         "type": "Image",
         "config": {
-          "thumbnails": [],
+          "label": "Logo",
           "constraint": {
-            "height": 80,
-            "width": null
+            "height": 80
           },
-          "label": "Logo"
+          "thumbnails": []
         }
       },
       "company_name": {
@@ -46,6 +51,7 @@
         "config": {
           "label": "Privacy Policy Link",
           "placeholder": "",
+          "allowTargetBlank": true,
           "select": null
         }
       },
@@ -60,7 +66,7 @@
       "whatsapp_link": {
         "type": "Link",
         "config": {
-          "label": "Whatsapp Link",
+          "label": "WhatsApp Link",
           "placeholder": "",
           "allowTargetBlank": true,
           "select": null
@@ -85,7 +91,6 @@
         "config": {
           "label": "Medical Marketing Website Link",
           "placeholder": "",
-          "allowTargetBlank": false,
           "select": null
         }
       },

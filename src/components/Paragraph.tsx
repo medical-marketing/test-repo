@@ -1,4 +1,4 @@
-import { createClient } from "@/prismicio";
+import { getSettings } from "@/app/utils";
 type ParagraphProps = {
   children: React.ReactNode;
   className: string;
@@ -10,8 +10,7 @@ export default async function Paragraph({
   className,
   color,
 }: ParagraphProps) {
-  const client = createClient();
-  const settings = await client.getSingle("settings");
+  const settings = await getSettings();
   const { secondary_color } = settings.data;
   return (
     <p
